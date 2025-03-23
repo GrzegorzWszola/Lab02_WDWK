@@ -1,0 +1,1 @@
+/usr/bin/cc  -m32  -m32 -no-pie CMakeFiles/Lab02.dir/src/Lab02C_src.c.o CMakeFiles/Lab02.dir/src/Lab02_src.s.o -o Lab02 
