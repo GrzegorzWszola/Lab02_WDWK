@@ -8,12 +8,11 @@
     overflow_message: .asciz "Overflow occurred!\n"
     time_start: .int 0   
     time_end: .int 0
-    output_format: .asciz "Time: %u milliseconds\n"
-    clock_per_sec: .int 3300000000
+    output_format: .asciz "Time: %u tików\n"
 
 .section .text
     .global main
-    .extern printf, scanf, clock
+    .extern printf, scanf, clock, free
     .extern generacja_danych, print_tablicy, quick_sort
 
 overflow:
@@ -64,17 +63,16 @@ main:
     # Koncowy czas
     rdtsc
     mov %eax, time_end
+
+    # Zwalanianie pamięci
+    push tab_ptr
+    call free
+    add $4, %esp
     
     # Liczenie roznicy czasu
     mov time_end, %eax
     sub time_start, %eax
     
-    # Zamiana na milisekundy
-    mov $1000, %ecx
-    mul %ecx
-    mov clock_per_sec, %ecx
-    div %ecx
-
     # Drukowanie wyniku
     push %eax             
     push $output_format      
