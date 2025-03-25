@@ -9,7 +9,7 @@
     time_start: .int 0   
     time_end: .int 0
     output_format: .asciz "Time: %u milliseconds\n"
-    clock_per_sec: .int 1000000
+    clock_per_sec: .int 3300000000
 
 .section .text
     .global main
@@ -51,7 +51,7 @@ main:
     mov %ebx, rozmiar
 
     # Start liczenia czasu
-    call clock
+    rdtsc
     mov %eax, time_start       
 
     # quick sort tablicy
@@ -59,11 +59,10 @@ main:
     push $0
     push tab_ptr
     call quick_sort
-    jo overflow
     add $12, %esp
 
     # Koncowy czas
-    call clock
+    rdtsc
     mov %eax, time_end
     
     # Liczenie roznicy czasu
@@ -75,7 +74,6 @@ main:
     mul %ecx
     mov clock_per_sec, %ecx
     div %ecx
-    jo overflow
 
     # Drukowanie wyniku
     push %eax             
