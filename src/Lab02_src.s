@@ -13,7 +13,7 @@
 .section .text
     .global main
     .extern printf, scanf, clock, free
-    .extern generacja_danych, print_tablicy, quick_sort
+    .extern generacja_danych, print_tablicy, quick_sort, generacja_danych_sortowane
 
 overflow:
     push $overflow_message
@@ -40,7 +40,7 @@ main:
 
     # Alokacja pamięci i tworzenie tabeli z danymi
     push rozmiar
-    call generacja_danych
+    call generacja_danych_sortowane
     add $4, %esp
     mov %eax, tab_ptr
 
